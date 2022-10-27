@@ -1,0 +1,149 @@
+body {
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+header {
+  min-height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  font-size: 13px;
+  margin-right: 20px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#googleLogo {
+  width: 300px;
+  margin-top: 50px;
+}
+
+#searchBar {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #dfe1e5;
+  border-radius: 24px;
+  height: 44px;
+  width: 584px;
+  padding: 8px 15px;
+}
+
+input[type="text"] {
+  border: none;
+  width: 85%;
+  outline: none;
+  font-size: 16px;
+  height: 100%;
+}
+
+svg {
+  width: 25px;
+}
+
+#buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+input[type="submit"] {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  margin: 11px 4px;
+  padding: 0 16px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#camera {
+  margin-right: 10px;
+}
+
+#avBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#headerLogo {
+  width: 100px;
+}
+
+#avHeader {
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+  padding: 20px 0;
+}
+
+#heading {
+  width: 80%;
+  border-bottom: 1px solid #ebebeb;
+}
+
+#heading h1 {
+  color: #d93025;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+#advancedSearch {
+  width: 80%;
+}
+
+#avMain {
+  width: 100%;
+}
+
+#advancedSearch h2 {
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+#advancedSearch input {
+  border: 1px solid #ebebeb;
+  width: 60%;
+  padding: 10px 15px;
+}
+
+.query {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+#advancedSearch form {
+  width: 70%;
+}
+
+#advancedSearchSubmit {
+  width: 100px !important;
+  color: white;
+  background-color: #4d90fe;
+}

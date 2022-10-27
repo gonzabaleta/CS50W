@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Search</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body id="avBody">
+    <header id="avHeader">
+      <a href="/"
+        ><img id="headerLogo" src="img/logo-Google.png" alt="Google Logo"
+      /></a>
+    </header>
+    <main id="avMain">
+      <div id="heading">
+        <h1>Advanced Search</h1>
+      </div>
+      <div id="advancedSearch">
+        <h2>Find pages with...</h2>
+        <form action="http://google.com/search">
+          <div class="query">
+            <label for="all">all these words:</label>
+            <input type="text" name="as_q" />
+          </div>
+          <div class="query">
+            <label for="exact">this exact word or phrase:</label>
+            <input type="text" name="as_epq" />
+          </div>
+          <div class="query">
+            <label for="any">any of these words:</label>
+            <input type="text" name="as_oq" />
+          </div>
+          <div class="query">
+            <label for="none">none of these words:</label>
+            <input type="text" name="as_eq" />
+          </div>
+          <input type="submit" id="advancedSearchSubmit" />
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
