@@ -3,6 +3,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django import forms
+from .models import Listing, Category
 
 from .models import User
 
@@ -61,3 +63,44 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+
+class CreateListingForm(forms.Form):
+    title = forms.CharField(max_length=64)
+    description = forms.CharField(max_length=512)
+    starting_bid = forms.DecimalField(decimal_places=2, max_digits=20)
+    image_url = forms.CharField(max_length=256)
+    category = forms.CharField(max_length=32)
+
+
+def create_listing(request):
+    message = None
+    error = None
+    if request.method == "POST":
+        form = CreateListingForm(request.POST)
+        if form.is_valid():
+
+            try:
+                category = Category.objects.get(
+                    name=form.cleaned_data['category'])
+            except Category.DoesNotExist:
+                category = None
+
+            if not category:
+                category = Category(name=form.cleaned_data['category'])
+                category.save()
+
+            listing = Listing(author=request.user,
+                              title=form.cleaned_data['title'], description=form.cleaned_data['description'], starting_bid=form.cleaned_data['starting_bid'], image_url=form.cleaned_data['image_url'], category=category)
+
+            listing.save()
+            message = "Listing successfully created"
+
+        else:
+            error = "Invalid Listing data"
+
+    return render(request, "auctions/create_listing.html", {
+        "form": CreateListingForm(),
+        "message": message,
+        "error": error
+    })
