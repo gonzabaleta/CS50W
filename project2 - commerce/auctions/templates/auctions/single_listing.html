@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if watchlist_msg %} 
+        <div class="alert alert-success">
+            {{ watchlist_msg }}
+        </div>
+    {% endif %}
+
+    <form action="{% url 'watchlist' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{ listing.id }}" name="listing_id">
+        {% if is_in_watchlist %}
+            <input type="hidden" value="DELETE" name="method">
+            <input type="submit" value="Remove watchlist">
+        {% else %}
+            <input type="hidden" value="POST" name="method">
+            <input type="submit" value="Add to watchlist">
+        {% endif %}
+    </form>
+    <h1>{{ listing.title }}</h1>
+    <img src="{{ listing.image_url }}" alt="{{ listing.title }}">
+    <p>{{ listing.description }}</p>
+    <h2>${{ listing.starting_bid }}</h2>
+
+    <h2>Details</h2>
+    <ul>
+        <li>Listed by {{ listing.author.username }}</li>
+        {% if listing.category %}
+            <li>Category: {{ listing.category.name }}</li>
+        {% else %}
+            <li>Category: No category listed</li>
+        {% endif %}
+    </ul>
+
+{% endblock %}

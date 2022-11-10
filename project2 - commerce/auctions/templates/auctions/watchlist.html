@@ -1,9 +1,9 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <h2>Watchlist</h2>
 
-    {% for listing in listings %} 
+    {% for listing in watchlist %}
         <a href="{% url 'single_listing' listing.id %}" class="listing">
             <div class="image">
                 <img src="{{ listing.image_url }}" alt="{{ listing.title }}">
@@ -15,6 +15,6 @@
             </div>
         </a>
     {% empty %}
-        <h3>No listings available</h3>
+        <h3>No items in watchlist</h3>
     {% endfor %}
 {% endblock %}

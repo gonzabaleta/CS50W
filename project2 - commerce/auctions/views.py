@@ -10,7 +10,10 @@ from .models import User
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    listings = Listing.objects.all()
+    return render(request, "auctions/index.html", {
+        "listings": listings
+    })
 
 
 def login_view(request):
@@ -104,3 +107,39 @@ def create_listing(request):
         "message": message,
         "error": error
     })
+
+
+def single_listing(request, listing_id):
+    watchlist_added = request.GET.get('w', '')
+    watchlist_msg = None
+    if watchlist_added:
+        watchlist_msg = "Item added to watchlist successfully"
+    watchlist_removed = request.GET.get('r', '')
+    if watchlist_removed:
+        watchlist_msg = "Item removed from watchlist"
+
+    listing = Listing.objects.get(id=listing_id)
+
+    try:
+        is_in_watchlist = request.user.watchlist.get(id=listing.id)
+    except Listing.DoesNotExist:
+        is_in_watchlist = None
+
+    return render(request, 'auctions/single_listing.html', {"listing": listing, 'watchlist_msg': watchlist_msg, 'is_in_watchlist': is_in_watchlist})
+
+
+def watchlist(request):
+    if request.method == "POST" and request.POST['method'] == 'POST':
+        listing_id = int(request.POST['listing_id'])
+        listing = Listing.objects.get(id=listing_id)
+        request.user.watchlist.add(listing)
+        return HttpResponseRedirect(reverse('single_listing', args=[listing_id]) + "?w=true")
+    if request.method == "POST" and request.POST['method'] == "DELETE":
+        listing_id = int(request.POST['listing_id'])
+        listing = Listing.objects.get(id=listing_id)
+        request.user.watchlist.remove(listing)
+        print('removing')
+        return HttpResponseRedirect(reverse('single_listing', args=[listing_id]) + "?r=true")
+    elif request.method == "GET":
+        watchlist = request.user.watchlist.all()
+        return render(request, 'auctions/watchlist.html', {"watchlist": watchlist})
