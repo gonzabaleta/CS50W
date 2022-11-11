@@ -19,12 +19,21 @@ class Listing(models.Model):
     image_url = models.CharField(max_length=256, blank=True, null=True)
     category = models.ForeignKey(
         Category, models.SET_NULL, blank=True, related_name="listings", null=True)
+    is_closed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.id} | {self.title} | {self.author.username}"
 
 
 class Bid(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="bids")
     listing = models.ForeignKey(
         Listing, on_delete=models.CASCADE, related_name="bids")
     price = models.DecimalField(decimal_places=2, max_digits=20)
+
+    def __str__(self):
+        return f"{self.user.username} bid ${self.price} on '{self.listing.title}'"
 
 
 class Comment(models.Model):
@@ -32,3 +41,7 @@ class Comment(models.Model):
         Listing, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="comments")
+    text = models.CharField(max_length=512, default="")
+
+    def __str__(self):
+        return f"{self.author.username} on '{self.listing.title}'"

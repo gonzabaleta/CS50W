@@ -21,14 +21,18 @@
                 <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Categories</a>
+                <a class="nav-link" href="{% url 'categories' %}">Categories</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'create_listing' %}">Create Listing</a>
-            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create_listing' %}">Create Listing</a>
+                </li>
+            {% endif %}
+            
             
             {% if user.is_authenticated %}
                 <li class="nav-item">
