@@ -114,7 +114,8 @@ def create_listing(request):
 
 
 class PlaceBidForm(forms.Form):
-    bid = forms.DecimalField(decimal_places=2, max_digits=20)
+    bid = forms.DecimalField(
+        decimal_places=2, max_digits=20, label="Your bid")
 
 
 class CommentForm(forms.Form):
@@ -129,7 +130,6 @@ def get_max_bid(listing):
         return SimpleNamespace(price=listing.starting_bid, listing=listing, user=None)
 
 
-@login_required
 def place_bid(bid, listing, user):
     if bid < listing.starting_bid:
         return {"error": "Bid must be at least as large as the starting bid"}

@@ -3,18 +3,20 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    {% for listing in listings %} 
-        <a href="{% url 'single_listing' listing.id %}" class="listing">
-            <div class="image">
-                <img src="{{ listing.image_url }}" alt="{{ listing.title }}">
-            </div>
-            <div class="content">
-                <h3>{{ listing.title }}</h3>
-                <p>{{ listing.description }}</p>
-                <p>${{ listing.starting_bid }}</p>
-            </div>
-        </a>
-    {% empty %}
-        <h3>No listings available</h3>
-    {% endfor %}
+    <div class="listings-container">
+        {% for listing in listings %} 
+            <a href="{% url 'single_listing' listing.id %}" class="listing">
+                <div class="image">
+                    <img src="{{ listing.image_url }}" alt="{{ listing.title }}">
+                </div>
+                <div class="content">
+                    <h3>{{ listing.title }}</h3>
+                    <p>{{ listing.description }}</p>
+                    <p>${{ listing.starting_bid }}</p>
+                </div>
+            </a>
+        {% empty %}
+            <h3>No listings available</h3>
+        {% endfor %}
+    </div>
 {% endblock %}
